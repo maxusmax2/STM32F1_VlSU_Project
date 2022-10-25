@@ -41,6 +41,7 @@ void wait_dma()
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
 	dma_flag = 1;
+//	HAL_ADC_Stop_DMA(&hadc1);
 }
 
 float get_charge(uint16_t result,uint16_t standart_voltage)

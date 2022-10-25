@@ -1,0 +1,7 @@
+
+*.o
+*.ioc
+*.launch
+*.map
+*.d
+*.prefs
