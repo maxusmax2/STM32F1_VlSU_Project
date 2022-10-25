@@ -5,3 +5,9 @@
 *.map
 *.d
 *.prefs
+*.su
+*.mk
+*.list
+*.elf
+Release/makefile
+*.bin
