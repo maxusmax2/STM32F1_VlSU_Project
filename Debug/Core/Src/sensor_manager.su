@@ -1,5 +1,5 @@
-sensor_manager.c:11:6:get_result_sensor	32	static
-sensor_manager.c:30:6:wait_dma	4	static
-sensor_manager.c:41:6:HAL_ADC_ConvCpltCallback	16	static
-sensor_manager.c:47:7:get_charge	24	static
-sensor_manager.c:52:6:show_result	16	static
+sensor_manager.c:19:6:get_result_sensor	24	static
+sensor_manager.c:38:6:wait_dma	4	static
+sensor_manager.c:49:6:HAL_ADC_ConvCpltCallback	16	static
+sensor_manager.c:55:7:get_charge	16	static
+sensor_manager.c:61:6:show_result	16	static

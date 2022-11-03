@@ -7,7 +7,7 @@
 #include "adc.h"
 #include "gpio.h"
 #define COUNT_SCAN_ADC 10
-#define ADC_CHANNELS_NUM 3
+#define ADC_CHANNELS_NUM 4
 #define ADC_RESOLUTION 4096
 #define VREFINT_CAL 1645.00
 #define VREF 3.00

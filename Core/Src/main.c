@@ -93,9 +93,11 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+
   HAL_TIM_Base_Start(&htim3);
   HAL_ADCEx_Calibration_Start(&hadc1);
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_data, ADC_CHANNELS_NUM);
+
 
   /* USER CODE END 2 */
 
@@ -103,7 +105,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
 	  get_result_sensor(&result);
 	  show_result(&result);
 

@@ -5,6 +5,14 @@
  *      Author: UUG009
  */
 #include "sensor_manager.h"
+#define VOLTAGE_HIGH_VALUE 3500
+
+
+#define UP_FIRST_PIN() HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_SET)
+#define DOWN_FIRST_PIN() HAL_GPIO_WritePin(GPIOA,GPIO_PIN_8,GPIO_PIN_RESET)
+
+#define UP_SECOND_PIN() HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_SET)
+#define DOWN_SECOND_PIN() HAL_GPIO_WritePin(GPIOA,GPIO_PIN_9,GPIO_PIN_RESET)
 
 uint8_t dma_flag = 0;
 extern uint16_t adc_data[ADC_CHANNELS_NUM];
@@ -14,9 +22,9 @@ void get_result_sensor(result_sensor * result)
 	for(int  i = 0; i < COUNT_SCAN_ADC; i++)
 	{
 	  wait_dma();
-	  result->result_sensor_1 += adc_data[SENSOR1];//get_charge(adc_data[SENSOR1], adc_data[VREFINT] );
-	  result->result_sensor_2 += adc_data[SENSOR2];//get_charge(adc_data[SENSOR2], adc_data[VREFINT] );
-	  result->result_sensor_3 += adc_data[SENSOR3];//get_charge(adc_data[SENSOR3], adc_data[VREFINT] );
+	  result->result_sensor_1 += get_charge(adc_data[SENSOR1], adc_data[VREFINT] );
+	  result->result_sensor_2 += get_charge(adc_data[SENSOR2], adc_data[VREFINT] );
+	  result->result_sensor_3 += get_charge(adc_data[SENSOR3], adc_data[VREFINT] );
 	  dma_flag = 0;
 	}
 
@@ -41,31 +49,32 @@ void wait_dma()
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
 	dma_flag = 1;
-//	HAL_ADC_Stop_DMA(&hadc1);
+
 }
 
 float get_charge(uint16_t result,uint16_t standart_voltage)
 {
-	return (VREF * result * standart_voltage ) / (ADC_RESOLUTION * VREFINT_CAL);
+	return result;
+//	return (VREF * result * standart_voltage ) / (ADC_RESOLUTION * VREFINT_CAL);
 }
 
 void show_result(result_sensor * result)
 {
-	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_15,GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOA,GPIO_PIN_12,GPIO_PIN_RESET);
+	DOWN_SECOND_PIN();
+	DOWN_FIRST_PIN();
 
-	if(result->result_sensor_1 > 3500)
+	if(result->result_sensor_1 > VOLTAGE_HIGH_VALUE)
 	{
-		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_12,GPIO_PIN_SET);
+		UP_FIRST_PIN();
 	}
-	if(result->result_sensor_2 > 3500)
+	if(result->result_sensor_2 > VOLTAGE_HIGH_VALUE)
 	{
-		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_15,GPIO_PIN_SET);
+		UP_SECOND_PIN();
 	}
-	if(result->result_sensor_3 > 3500)
+	if(result->result_sensor_3 > VOLTAGE_HIGH_VALUE)
 	{
-		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_12,GPIO_PIN_SET);
-		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_15,GPIO_PIN_SET);
+		UP_FIRST_PIN();
+		UP_SECOND_PIN();
 	}
 
 }
