@@ -7,10 +7,11 @@
 #include "adc.h"
 #include "gpio.h"
 #define COUNT_SCAN_ADC 10
+#define VREF 3.3
 #define ADC_CHANNELS_NUM 4
 #define ADC_RESOLUTION 4096
-#define VREFINT_CAL 1645.00
-#define VREF 3.00
+#define VREFINT_CAL 1489
+#define CAL_TO_CURRENT_VOLTAGE 24/VREF
 
 #define SENSOR1 0
 #define SENSOR2 1

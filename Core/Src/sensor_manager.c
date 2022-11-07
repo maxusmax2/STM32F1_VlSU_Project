@@ -2,7 +2,7 @@
  * sensor_manager.c
  *
  *  Created on: 17 окт. 2022 г.
- *      Author: UUG009
+ *      Author: maxusmax
  */
 #include "sensor_manager.h"
 #define VOLTAGE_HIGH_VALUE 3500
@@ -16,9 +16,11 @@
 
 uint8_t dma_flag = 0;
 extern uint16_t adc_data[ADC_CHANNELS_NUM];
+
 void get_result_sensor(result_sensor * result)
 {
 	result->result_sensor_1 = result->result_sensor_2 = result->result_sensor_3 = 0;
+
 	for(int  i = 0; i < COUNT_SCAN_ADC; i++)
 	{
 	  wait_dma();
@@ -34,7 +36,6 @@ void get_result_sensor(result_sensor * result)
 
 }
 
-
 void wait_dma()
 {
 	while(1)
@@ -46,35 +47,39 @@ void wait_dma()
 	}
 }
 
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
-{
-	dma_flag = 1;
-
-}
 
 float get_charge(uint16_t result,uint16_t standart_voltage)
 {
-	return result;
-//	return (VREF * result * standart_voltage ) / (ADC_RESOLUTION * VREFINT_CAL);
+
+	return (VREF * result * standart_voltage ) / (ADC_RESOLUTION * VREFINT_CAL) * CAL_TO_CURRENT_VOLTAGE;
 }
+
+
 
 void show_result(result_sensor * result)
 {
 	DOWN_SECOND_PIN();
 	DOWN_FIRST_PIN();
 
-	if(result->result_sensor_1 > VOLTAGE_HIGH_VALUE)
+	if(result->result_sensor_1 > 20)
 	{
 		UP_FIRST_PIN();
 	}
-	if(result->result_sensor_2 > VOLTAGE_HIGH_VALUE)
+	if(result->result_sensor_2 > 20)
 	{
 		UP_SECOND_PIN();
 	}
-	if(result->result_sensor_3 > VOLTAGE_HIGH_VALUE)
+	if(result->result_sensor_3 > 20)
 	{
 		UP_FIRST_PIN();
 		UP_SECOND_PIN();
 	}
 
 }
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+	dma_flag = 1;
+
+}
+
