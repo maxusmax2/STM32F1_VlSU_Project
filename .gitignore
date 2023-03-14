@@ -11,3 +11,4 @@
 *.elf
 Release/makefile
 *.bin
+Debug/
