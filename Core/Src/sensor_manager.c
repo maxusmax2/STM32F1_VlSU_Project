@@ -82,4 +82,29 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 	dma_flag = 1;
 
 }
+int electronic_control_unit_OK(){
+	return OK;
+}
 
+int sensor_of_contour1(){
+	return OK;
+}
+
+int sensor_pressure1(){
+
+}
+
+int sensor_pressure2(){
+
+}
+float get_sensor_pressure_value_1(){}
+float get_sensor_pressure_value_2(){}
+float get_number_of_revolutions(){
+
+}
+int get_engine_status(){
+
+}
+float get_speed_automobile(){
+
+}

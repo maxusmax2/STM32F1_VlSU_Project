@@ -25,3 +25,14 @@ typedef struct{
 void show_result(result_sensor * result);
 void get_result_sensor(result_sensor * result);
 float get_charge(uint16_t result,uint16_t standart_voltage);
+int electronic_control_unit_OK();
+int sensor_of_contour1();
+int sensor_pressure1();
+int sensor_pressure2();
+float get_number_of_revolutions();
+float get_sensor_pressure_value_1();
+float get_sensor_pressure_value_2();
+int get_engine_status();
+float get_speed_automobile();
+int get_mass_status();
+int get_time();

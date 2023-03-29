@@ -8,14 +8,13 @@
 #ifndef INC_BUSINESS_LOGIC_H_
 #define INC_BUSINESS_LOGIC_H_
 #define OK 1
-#define NOT_OK;
+#define NOT_OK 0
 void main_loop();
 int status1Error(int code);
-int electronic_control_unit_OK();
-int sensor_pressure1();
-int sensor_pressure2();
 void status0OK();
-
+void set_poff(float p);
+void set_toff(float t);
+float pmax(int mode);
 
 typedef enum ERROR_CODE{
 	FC00 = 0,
